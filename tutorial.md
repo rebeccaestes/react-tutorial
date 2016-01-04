@@ -266,7 +266,7 @@ return <div>
 
 Now, let's define the handleClick method. Before the render method in ListOfThings, paste the following. It's a simple toggle function that decides what to set `this.state.style` to, depending on what that value currently is. 
 
-```
+```jsx
 handleClick: function() {
 	if (this.state.style === "colorful") {
 		this.setState({
