@@ -3,7 +3,7 @@
 <h3>Setup</h3>
 For the purposes of this exercise, you'll only need one file, index.html. You'll set it up with the basic HTML boilerplate, but in the with a few new scripts loaded in the head, and an extra script section at the bottom. Here's what it should look like:
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +45,7 @@ Here's a conceptual overview of how to build a basic React app. Don't worry if i
 <h3>Code Structures</h3>
 That all sounds great, but what does it actually look like? Let's make a super simple app called My Favorite Things. Here's the structure for a component, the snippets of code that create your app. You can go ahead and copy this (as well as the two chunks of code that follow) inside the `<script type="text/jsx"></script>` tags of your HTML.
 
-```
+```jsx
 var MyFavoriteThings = React.createClass({
 	render: function() {
 		// CODE GOES HERE
@@ -57,7 +57,7 @@ var MyFavoriteThings = React.createClass({
 
 Next, we'll write an object that lists the component's properties:
 
-```
+```jsx
 var favorites = {
 	books: [{
 		title: "Harry Potter",
@@ -84,7 +84,7 @@ This object consists of two arrays, each of which contain two objects, each of w
 
 These next two lines have two more built-in methods that come with React and ReactDOM, respectively. Notice where variables are being repeated.
 
-```
+```jsx
 var element = React.createElement(MyFavoriteThings, favorites);
 ReactDOM.render(element, document.querySelector(".react-element");
 ```
@@ -95,7 +95,7 @@ ReactDOM.render(element, document.querySelector(".react-element");
 
 Let's do that, and take a look at our file thus far:
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,7 +182,7 @@ A few things to notice:
 
 You could make a much more elaborate element, with nesting HTML tags and IDs and classes. As you get into those more complex elements, however, there are two easy trip-ups to be aware of.
 
-* Every HTML tag <strong>must be explicitly closed</strong>. This means that self-closing tags, like images or line breaks, <strong>must</strong> include a forward slash before they close. So they'll look like `<img src="myImage.jpg" />` or `<br />`, NOT <img src="myImage.jpg"> or <br>.
+* Every HTML tag <strong>must be explicitly closed</strong>. This means that self-closing tags, like images or line breaks, <strong>must</strong> include a forward slash before they close. So they'll look like `<img src="myImage.jpg" />` or `<br />`, NOT `<img src="myImage.jpg">` or `<br>`.
 
 * You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`.
 
