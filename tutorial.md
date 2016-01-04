@@ -244,6 +244,74 @@ The third line, where `var list` is first defined, should be familiar. We're ite
 * Inside of `<AFavoriteThing />`, we're including this this weird-looking `{...favoriteProps}` line. This is because we're iterating through this.props.books within ListOfThings, and in order to render its component, AFavoriteThing needs to be able to access the properties ListOfThings is generating. By including `{...favoriteProps}`, we're passing these properties to AFavoriteThing the properties.
  * You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
 
-
 There's one last thing you should do for this mapping function to work. Since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);
 ` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them.
+
+<h3>States</h3>
+
+You might expect React to be somewhat, well, reactive (maybe that's just me ...?). It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div' state with specific properties, as well a a `this.state.style' state iwth others.
+
+We're going to set up an extremely simple (and pretty pointless) style state, but it will familiarize you with the general structure of states. Our state is going to toggle the color of our text when we click a button.
+
+If this were a regular Javascript function we were writing, we'd set a toggling onClick event to change the font to red when we clicked our button, and then back to black when we clicked it again. That's honestly not that different from what we'll do here.
+
+Our button is listening for a click, and when it hears it, it will run a method called handleClick to decide what to do. Here's what our button looks like:
+
+```jsx
+return <div>
+	{list}
+	<button onClick={this.handleClick}>Toggle State</button>
+</div>
+```
+
+Now, let's define the handleClick method. Before the render method in ListOfThings, paste the following. It's a simple toggle function that decides what to set `this.state.style` to, depending on what that value currently is. 
+
+```
+handleClick: function() {
+	if (this.state.style === "colorful") {
+		this.setState({
+			style: "uncolorful"
+		})
+	} else {
+		this.setState({
+			style: "colorful"
+		})
+	}
+},
+```
+
+So we're passing in an object using `this.setState`, with one key-value pair. You need to use `this.setState`, instead of just assigning `this.state.style` to colorful or uncolorful, because a simple assignment <strong>will not rerender the page</strong>. Only setState will. 
+
+Please note:
+* You could include multiple key-value pairs in the setState object, if you wanted!
+* Don't forget the comma between the end of this method, and the beginning of the render method. It will break your app.
+
+There's one last thing we need to do, and that's to set React.createClass's built-in method, getInitialState. Unsurprisingly, this is what React runs when a page first loads, to get its initial state.
+
+Paste this code as the first method of ListOfThings (it is <em>initial</em> state, after all). And don't forget the comma!
+
+```jsx
+getInitialState: function() {
+	return { style: "uncolorful" }
+},
+```
+
+Finally, we need this toggled style to actually change something. You could write inline CSS for this, but you should know by now how to set up a separate stylesheet and link to it. Here's the bare-bones code I used:
+
+```css
+.colorful {
+	color: red;
+}
+
+.uncolorful {
+	color: black;
+}
+```
+
+<h3>That's it!</h3>
+
+Your index.html file will now show a lovely list of two books that changes colors upon the click of a button. If it's not, take a look at <a href="https://github.com/rebeccaestes/react-tutorial/blob/master/index.html">my solution code</a> to try and figure out where you went wrong.
+
+<h3>What's next?</h3>
+
+Check out <a href="https://facebook.github.io/react/index.html">React's documentation</a>. If you have a few dollars laying around I recommend the Udemy course <a href="https://www.udemy.com/learn-and-understand-reactjs">Build Web Apps with React JS and Flux</a>. 

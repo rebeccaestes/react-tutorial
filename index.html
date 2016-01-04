@@ -6,6 +6,9 @@
 	<script src="https://fb.me/react-dom-0.14.3.js"></script>
 	<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
 
+	<link rel="stylesheet" href="style.css">
+
+
 	<title>My First React App</title>
 
 </head>
@@ -27,15 +30,35 @@
 	});
 
 	var ListOfThings = React.createClass({
+
+		getInitialState: function() {
+			return { style: "uncolorful" }
+		},
+
+		handleClick: function() {
+			if (this.state.style === "colorful") {
+				this.setState({
+					style: "uncolorful"
+				})
+			} else {
+				this.setState({
+					style: "colorful"
+				})
+			}
+			console.log(this.state.style);
+		},
+
 		render: function() {
 			var list = this.props.books.map(function(favoriteProps){
 				return <AFavoriteThing {...favoriteProps} />
 			});
 
-			return <div>
+			return <div className={this.state.style} >
 				{list}
+				<button onClick={this.handleClick}>Toggle State</button>
 			</div>
 		}
+
 	});
 
 	var favorites = {
