@@ -46,7 +46,7 @@ Here's a conceptual overview of how to build a basic React app. Don't worry if i
 That all sounds great, but what does it actually look like? Let's make a super simple app called My Favorite Things. Here's the structure for a component, the snippets of code that create your app. You can go ahead and copy this (as well as the two chunks of code that follow) inside the `<script type="text/jsx"></script>` tags of your HTML.
 
 ```jsx
-var MyFavoriteThings = React.createClass({
+var AFavoriteThing = React.createClass({
 	render: function() {
 		// CODE GOES HERE
 	}
@@ -85,11 +85,11 @@ This object consists of two arrays, each of which contain two objects, each of w
 These next two lines have two more built-in methods that come with React and ReactDOM, respectively. Notice where variables are being repeated.
 
 ```jsx
-var element = React.createElement(MyFavoriteThings, favorites);
+var element = React.createElement(AFavoriteThing, favorites);
 ReactDOM.render(element, document.querySelector(".react-element"));
 ```
 
-.createElement's parameters are the code you want to render on this page and its relevant data. In this case, that's `MyFavoriteThings` and `favorites` - conveniently, the two objects we just built.
+.createElement's parameters are the code you want to render on this page and its relevant data. In this case, that's `AFavoriteThing` and `favorites` - conveniently, the two objects we just built.
 
 .render takes two arguments: the element to be rendered onto the page, and the element it should be inserted into. The first argument is `element`, because that's the creative variable we assigned the React.createElement method to. The second argument is for the element with the class react-element - which we actually haven't included in our HTML! 
 
@@ -115,7 +115,7 @@ Let's do that, and take a look at our file thus far:
 
 <script type="text/jsx">
 
-	var MyFavoriteThings = React.createClass({
+	var AFavoriteThing = React.createClass({
 		render: function() {
 			// CODE GOES HERE
 		}
@@ -142,7 +142,7 @@ Let's do that, and take a look at our file thus far:
 		]
 	};
 
-	var element = React.createElement(MyFavoriteThings, favorites);
+	var element = React.createElement(AFavoriteThing, favorites);
 	ReactDOM.render(element, document.querySelector(".react-element"));
 
 </script>
@@ -177,7 +177,7 @@ var NewPara = React.createClass({
 
 A few things to notice:
 
-* the `var NewPara =` line is, essentially, the same as the `var MyFavoriteThings` line in our code.
+* the `var NewPara =` line is, essentially, the same as the `var AFavoriteThing` line in our code.
 * The entire content of the `render` method is some HTML, prefaced by the command `return`.
 
 You could make a much more elaborate element, with nesting HTML tags and IDs and classes. As you get into those more complex elements, however, there are two easy trip-ups to be aware of.
@@ -186,31 +186,60 @@ You could make a much more elaborate element, with nesting HTML tags and IDs and
 
 * You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`.
 
-If you copy and paste that `return <p>I am a new paragraph</p>` into your MyFavoriteThings render function, save it, and open index.html in your browser, you'll see it ... well, rendered in the browser. Cool! Well, sort of.
+* Whatever element directly follows `return` has to enclose <strong>all the HTML that you're returning. So if you have a component with an h1 and a p element, you should enclose it all within a `<div>`. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
+
+
+If you copy and paste that `return <p>I am a new paragraph</p>` into your AFavoriteThing render function, save it, and open index.html in your browser, you'll see it ... well, rendered in the browser. Cool! Well, sort of.
 
 What would be cooler is if we could use React to do something other than write HTML in a really complex way. Luckily, we can.
 
 <h3>Properties</h3>
 
-Earlier, I said that React components can make use of properties. In ths app, our properties are stored as an object in the variable `favorites`, and linked them to the component we're creating in the line `var element = React.createElement(MyFavoriteThings, favorites);
-`. But how to we access them?
+Earlier, I said that React components can make use of properties. In ths app, our properties are stored as an object in the variable `favorites`, and linked them to the component we're creating in the line `var element = React.createElement(AFavoriteThing, favorites);
+`. So how do we get to them?
 
 React objects - remember, our component is technically an object - come with a handy property called, originally, `.props`. We can attach it to `this` (so that it knows which object's properties it's looking for - in future projects, you'll have different many components). From there, you know how to grab a particular value from an object - something like `this.props.books[0].title` is one way to do it.
 
-But how do you include the value you've grabbed via Javascript, within an HTML element we're returning? {Curly braces, that's how!}
+But how do you get an HTML element to return a value you've grabbed via Javascript? {Curly braces, that's how!}
 
 Try this:
 
-```
-	var MyFavoriteThings = React.createClass({
-		render: function() {
-			return <div>
-				<h1>{this.props.books[0].title}</h1>
-				<h2>{this.props.books[0].volumes} books by {this.props.books[0].author}</h2>
-			</div>
-		}
-	});
+```jsx
+var AFavoriteThing = React.createClass({
+	render: function() {
+		return <div>
+			<h1>{this.props.books[0].title}</h1>
+			<h2>{this.props.books[0].volumes} books by {this.props.books[0].author}</h2>
+		</div>
+	}
+});
 ```
 
-Note that whatever element follows `return` has to follow <em>all</em>the HTML that you're returning. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
+When we need to access properties within some HTML we're returning, all you need to do is wrap them in a single set of curly brackets.
+
+<h4>Looping Through Properties</h4>
+
+OK, so we can display properties through their index number. We should be able to display them all by looping through them, right? Well, sort of.
+
+We're going to create a new component to do this. This new component will be a list of all our favorite things, so let's call it ListOfThings. Inside ListOfThings, we'll be printing out the component AFavoriteThing, once for every object in our data. Here's how we do this:
+
+```jsx
+var ListOfThings = React.createClass({
+	render: function() {
+		var list = this.props.books.map(function(favoriteProps){
+			return <AFavoriteThing {...favoriteProps} />
+		});
+
+		return <div>
+			{list}
+		</div>
+	}
+});
+```
+
+The third line, where `var list` is first defined, should be familiar. We're iterating through `this.props.books`, and mapping the values to a function. That function is where things get a little complicated.
+
+* We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line)
+ * We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance of `this.props.books` in our data.
+ * Inside of `<AFavoriteThing />`, we're passing in this weird-looking `{...favoriteProps}. Well, we're iterating through this.props.books within ListOfThings, and in order to render the component that AFavoriteThing will generate, AFavoriteThing needs to be able to access the properties ListOfThings is giving it. By including `{...favoriteProps}`, AFavoriteThing has access to the properties it needs for each iteration. You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
 

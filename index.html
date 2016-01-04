@@ -17,11 +17,23 @@
 
 <script type="text/jsx">
 
-	var MyFavoriteThings = React.createClass({
+	var AFavoriteThing = React.createClass({
 		render: function() {
+			return <div className="thing">
+				<h1>{this.props.title}</h1>
+				<h2>{this.props.volumes} books by {this.props.author}</h2>
+			</div>
+		}
+	});
+
+	var ListOfThings = React.createClass({
+		render: function() {
+			var list = this.props.books.map(function(favoriteProps){
+				return <AFavoriteThing {...favoriteProps} />
+			});
+
 			return <div>
-				<h1>{this.props.books[0].title}</h1>
-				<h2>{this.props.books[0].volumes} books by {this.props.books[0].author}</h2>
+				{list}
 			</div>
 		}
 	});
@@ -35,19 +47,10 @@
 			title: "His Dark Materials",
 			author: "Philip Pullman",
 			volumes: 3
-		}],
-		shows: [{
-			title: "Friday Night Lights",
-			network: ["NBC", "DirecTV"],
-			seasons: 5
-		}, {	
-			title: "Jessica Jones",
-			network: "Netflix",
-			seasons: 1
 		}]
 	};
 
-	var element = React.createElement(MyFavoriteThings, favorites);
+	var element = React.createElement(ListOfThings, favorites);
 	ReactDOM.render(element, document.querySelector(".react-element"));
 
 </script>
