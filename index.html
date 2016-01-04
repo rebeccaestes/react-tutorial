@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<script src="https://fb.me/react-0.14.3.js"></script>
+	<script src="https://fb.me/react-dom-0.14.3.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
+
+	<title>My First React App</title>
+
+</head>
+<body>
+
+	<div class="react-element"></div>
+
+</body>
+
+<script type="text/jsx">
+
+	var MyFavoriteThings = React.createClass({
+		render: function() {
+			// CODE GOES HERE
+		}
+	});
+
+	var favorites = {
+		books: [{
+			title: "Harry Potter",
+			author: "JK Rowling",
+			volumes: 7
+		}, {
+			title: "His Dark Materials",
+			author: "Philip Pullman",
+			volumes: 3
+		}],
+		shows: [{
+			title: "Friday Night Lights",
+			network: ["NBC", "DirecTV"],
+			seasons: 5
+		}, {	
+			title: "Jessica Jones",
+			network: "Netflix",
+			seasons: 1
+		]
+	};
+
+	var element = React.createElement(MyFavoriteThings, favorites);
+	ReactDOM.render(element, document.querySelector(".react-element");
+
+</script>
+
+</html>

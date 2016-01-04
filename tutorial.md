@@ -1,6 +1,6 @@
 <h1>React Basics</h1>
 
-<h2>Setup</h2>
+<h3>Setup</h3>
 For the purposes of this exercise, you'll only need one file, index.html. You'll set it up with the basic HTML boilerplate, but in the with a few new scripts loaded in the head, and an extra script section at the bottom. Here's what it should look like:
 
 ```
@@ -34,15 +34,15 @@ JSX code is a way of inserting HTML into a page that's a lot easier than creatin
 
 Here's a conceptual overview of how to build a basic React app. Don't worry if it doesn't make much sense; I'll be showing you the actual code in a moment. If you're familiar with Javascript, none of the code should look that weird to you.
 
-<ul><li>React apps are built of snippets of code called <strong>components</strong>. Components can construct HTML elements as simple as a sentence, or as complicated as a Facebook user interface. (We're going to be sticking to the simpler elements here ... just so you keep your expectations reasonable!)</li>
+* React apps are built of snippets of code called <strong>components</strong>. Components can construct HTML elements as simple as a sentence, or as complicated as a Facebook user interface. (We're going to be sticking to the simpler elements here ... just so you keep your expectations reasonable!)
 
-<li>Components can make use of a list of <strong>properties</strong>, which are listed in a separately-instantiated object. (Technically these aren't necessary, but it would make for a really boring app.)</li>
+* Components can make use of a list of <strong>properties</strong>, which are listed in a separately-instantiated object. (Technically these aren't necessary, but it would make for a really boring app.)
 
-<li>To use these components, you'll write a line of code instructing React to <strong>create your component</strong> as an element. That line will also link the component and the properties so that they can be rendered together.</li> 
+* To use these components, you'll write a line of code instructing React to <strong>create your component</strong> as an element. That line will also link the component and the properties so that they can be rendered together.
 
-<li>And you'll use another line of code to tell React <strong>where in the DOM</strong> to insert that element.</li></ul>
+* And you'll use another line of code to tell React <strong>where in the DOM</strong> to insert that element.
 
-<h2>Code Structures</h2>
+<h3>Code Structures</h3>
 That all sounds great, but what does it actually look like? Let's make a super simple app called My Favorite Things. Here's the structure for a component, the snippets of code that create your app. You can go ahead and copy this (as well as the two chunks of code that follow) inside the `<script type="text/jsx"></script>` tags of your HTML.
 
 ```
@@ -55,7 +55,7 @@ var MyFavoriteThings = React.createClass({
 
 .createClass is a method built into React that creates an object - hence the curly brackets. This object has one method called render. We'll define it later.
 
-Next, we'll write an object that lists the component's properties might look something like this:
+Next, we'll write an object that lists the component's properties:
 
 ```
 var favorites = {
@@ -80,20 +80,20 @@ var favorites = {
 };
 ```
 
-This too is an object. It consists of two arrays, each of which contain two objects, each of which have three key-property values.
+This object consists of two arrays, each of which contain two objects, each of which have three key-property pairs.
 
-These next two lines are React-specific. Don't worry too much about their exact structure, just notice where variables are being repeated.
+These next two lines have two more built-in methods that come with React and ReactDOM, respectively. Notice where variables are being repeated.
 
 ```
 var element = React.createElement(MyFavoriteThings, favorites);
 ReactDOM.render(element, document.querySelector(".react-element");
 ```
 
-.createElement is another built-in React method. Its parameters are the code you want to render on this page and its relevant data. In this case, that's `MyFavoriteThings` and `favorites` - conveniently, the two objects we just built.
+.createElement's parameters are the code you want to render on this page and its relevant data. In this case, that's `MyFavoriteThings` and `favorites` - conveniently, the two objects we just built.
 
-.render is a built-in ReactDOM method that takes two arguments: the element to be rendered onto the page, and the element it should be inserted into. The first argument is `element`, because that's the creative variable we assigned the React.createElement method to. The second argument is for the element with the class react-element - which we actually haven't included in our HTML! Let's do that.
+.render takes two arguments: the element to be rendered onto the page, and the element it should be inserted into. The first argument is `element`, because that's the creative variable we assigned the React.createElement method to. The second argument is for the element with the class react-element - which we actually haven't included in our HTML! 
 
-Here's what your entire index.html file should look like now:
+Let's do that, and take a look at our file thus far:
 
 ```
 <!DOCTYPE html>
@@ -152,7 +152,7 @@ Here's what your entire index.html file should look like now:
 
 Everything look good? Cool - now let's write some JSX!
 
-<h2>JSX</h2>
+<h3>JSX</h3>
 
 Like I said before, JSX is a way of inserting HTML into a page that's easier than doing it in regular Javascript. You don't have to use it with React, but it makes your life a lot easier. For example, here's an example of code you'd write to insert a new five-word paragraph with vanilla Javascript:
 
@@ -176,13 +176,15 @@ var NewPara = React.createClass({
 ```
 
 A few things to notice:
-<ul><li>the `var NewPara =` line is, essentially, the same as the `var MyFavoriteThings` line in our code.</li>
-<li>The entire content of the `render` method is some HTML, prefaced by the command `return`.</li></ul>
+
+* the `var NewPara =` line is, essentially, the same as the `var MyFavoriteThings` line in our code.
+* The entire content of the `render` method is some HTML, prefaced by the command `return`.
 
 You could make a much more elaborate element, with nesting HTML tags and IDs and classes. As you get into those more complex elements, however, there are two easy trip-ups to be aware of.
 
-<ol><li>Every HTML tag <strong>must be explicitly closed</strong>. This means that self-closing tags, like images or line breaks, <strong>must</strong> include a forward slash before they close. So they'll look like `<img src="myImage.jpg" />` or `<br />`, NOT <img src="myImage.jpg"> or <br>.</li>
-<li>You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`. </li></ol>
+* Every HTML tag <strong>must be explicitly closed</strong>. This means that self-closing tags, like images or line breaks, <strong>must</strong> include a forward slash before they close. So they'll look like `<img src="myImage.jpg" />` or `<br />`, NOT <img src="myImage.jpg"> or <br>.
+
+* You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`.
 
 
 	
