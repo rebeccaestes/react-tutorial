@@ -241,6 +241,9 @@ The third line, where `var list` is first defined, should be familiar. We're ite
 
 * We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line).
 * We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance of `this.props.books` in our data.
-* Inside of `<AFavoriteThing />`, we're passing in this weird-looking `{...favoriteProps}`. Well, we're iterating through this.props.books within ListOfThings, and in order to render the component that AFavoriteThing will generate, AFavoriteThing needs to be able to access the properties ListOfThings is giving it. By including `{...favoriteProps}`, AFavoriteThing has access to the properties it needs for each iteration. 
+* Inside of `<AFavoriteThing />`, we're including this this weird-looking `{...favoriteProps}` line. This is because we're iterating through this.props.books within ListOfThings, and in order to render its component, AFavoriteThing needs to be able to access the properties ListOfThings is generating. By including `{...favoriteProps}`, we're passing these properties to AFavoriteThing the properties.
  * You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
 
+
+There's one last thing you should do for this mapping function to work. Since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);
+` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them.
