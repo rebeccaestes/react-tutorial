@@ -67,16 +67,7 @@ var favorites = {
 		title: "His Dark Materials",
 		author: "Philip Pullman",
 		volumes: 3
-	}],
-	shows: [{
-		title: "Friday Night Lights",
-		network: ["NBC", "DirecTV"],
-		seasons: 5
-	}, {	
-		title: "Jessica Jones",
-		network: "Netflix",
-		seasons: 1
-	]
+	}]
 };
 ```
 
@@ -130,16 +121,7 @@ Let's do that, and take a look at our file thus far:
 			title: "His Dark Materials",
 			author: "Philip Pullman",
 			volumes: 3
-		}],
-		shows: [{
-			title: "Friday Night Lights",
-			network: ["NBC", "DirecTV"],
-			seasons: 5
-		}, {	
-			title: "Jessica Jones",
-			network: "Netflix",
-			seasons: 1
-		]
+		}]
 	};
 
 	var element = React.createElement(AFavoriteThing, favorites);
