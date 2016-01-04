@@ -171,7 +171,7 @@ You could make a much more elaborate element, with nesting HTML tags and IDs and
 * Whatever element directly follows `return` has to enclose <strong>all the HTML</strong> that you're returning. So if you have a component with an h1 and a p element, you should enclose it all within a `<div>`. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
 
 
-If you copy and paste that `return <p>I am a new paragraph</p>` into your AFavoriteThing render function, save it, and open index.html in your browser, you'll see it ... well, rendered in the browser. Cool! Well, sort of.
+If you copy and paste that `return <p>I am a new paragraph</p>` into your AFavoriteThing render function, save it, and open index.html in your browser, you'll see it - as you might expect - rendered in the browser. Cool!
 
 What would be cooler is if we could use React to do something other than write HTML in a really complex way. Luckily, we can.
 
@@ -180,7 +180,7 @@ What would be cooler is if we could use React to do something other than write H
 Earlier, I said that React components can make use of properties. In ths app, our properties are stored as an object in the variable `favorites`, and linked them to the component we're creating in the line `var element = React.createElement(AFavoriteThing, favorites);
 `. So how do we get to them?
 
-React objects - remember, our component is technically an object - come with a handy property called, originally, `.props`. We can attach it to `this` (so that it knows which object's properties it's looking for - in future projects, you'll have different many components). From there, you know how to grab a particular value from an object - something like `this.props.books[0].title` is one way to do it.
+React objects - remember, our component is technically an object - come with a handy property called, originally, `.props`. We can attach it to `this` (so that it knows which object's properties it's looking for - in future projects, you could have many different components). From there, you know how to grab a particular value from an object - something like `this.props.books[0].title` is one way to do it.
 
 But how do you get an HTML element to return a value you've grabbed via Javascript? {Curly braces, that's how!}
 
@@ -201,7 +201,7 @@ When we need to access properties within some HTML we're returning, all you need
 
 <h4>Looping Through Properties</h4>
 
-OK, so we can display properties through their index number. We should be able to display them all by looping through them, right? Well, sort of.
+OK, so we can display properties through their index number. We should be able to display them all by looping through them, right? We can!
 
 We're going to create a new component to do this. This new component will be a list of all our favorite things, so let's call it ListOfThings. Inside ListOfThings, we'll be printing out the component AFavoriteThing, once for every object in our data. Here's how we do this:
 
@@ -222,16 +222,28 @@ var ListOfThings = React.createClass({
 The third line, where `var list` is first defined, should be familiar. We're iterating through `this.props.books`, and mapping the values to a function. That function is where things get a little complicated.
 
 * We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line).
-* We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance of `this.props.books` in our data.
+* We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance (in this case, book) of `this.props.books` in our data.
 * Inside of `<AFavoriteThing />`, we're including this this weird-looking `{...favoriteProps}` line. This is because we're iterating through this.props.books within ListOfThings, and in order to render its component, AFavoriteThing needs to be able to access the properties ListOfThings is generating. By including `{...favoriteProps}`, we're passing these properties to AFavoriteThing the properties.
  * You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
 
-There's one last thing you should do for this mapping function to work. Since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);
-` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them.
+There's two final things you should do for this mapping function to work. First, since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them.
+
+Second, we need to update AFavoriteThing so that we can reuse it for every book in our data. We don't want it to just generate Harry Potter data every time. So make sure it includes this code:
+
+```jsx
+var AFavoriteThing = React.createClass({
+	render: function() {
+		return <div className="thing">
+			<h1>{this.props.title}</h1>
+			<h2>{this.props.volumes} books by {this.props.author}</h2>
+		</div>
+	}
+});
+```
 
 <h3>States</h3>
 
-You might expect React to be somewhat, well, reactive (maybe that's just me ...?). It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div` state with specific properties, as well a a `this.state.style' state with others.
+You might expect React to be somewhat, well, reactive. It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div` state with specific properties, as well as a `this.state.style' state with others.
 
 We're going to set up an extremely simple (and pretty pointless) style state, but it will familiarize you with the general structure of states. Our state is going to toggle the color of our text when we click a button.
 
