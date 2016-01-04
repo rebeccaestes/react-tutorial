@@ -231,7 +231,7 @@ There's one last thing you should do for this mapping function to work. Since we
 
 <h3>States</h3>
 
-You might expect React to be somewhat, well, reactive (maybe that's just me ...?). It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div' state with specific properties, as well a a `this.state.style' state iwth others.
+You might expect React to be somewhat, well, reactive (maybe that's just me ...?). It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div` state with specific properties, as well a a `this.state.style' state with others.
 
 We're going to set up an extremely simple (and pretty pointless) style state, but it will familiarize you with the general structure of states. Our state is going to toggle the color of our text when we click a button.
 
