@@ -1,8 +1,4 @@
-React Basics
-
-In this tutorial we're going to go over the basics of React.JS.
-
-1. Set Up
+<h1>React Basics</h1>
 
 For the purposes of this exercise, you'll only need one file, index.html. You'll set it up with the basic HTML boilerplate, but in the with a few new scripts loaded in the head, and an extra script section at the bottom. Here's what it should look like:
 
@@ -31,7 +27,7 @@ For the purposes of this exercise, you'll only need one file, index.html. You'll
 The three scripts we're loading are:
 <ol><li><strong>React</strong>, which inserts the code you write;</li>
 <li><strong>ReactDOM</strong>, which lets React navigate the DOM so it knows where to put that code; and</li>
-<li><strong>JSX Transformer</strong>, which interprets JSX code.</li>
+<li><strong>JSX Transformer</strong>, which interprets JSX code.</li></ol>
 
 JSX code is a way of inserting HTML into a page that's a lot easier than creating and appending an element with regular JavaScript. Here we're going to be inserting it directly into the page, enclosed in the `<script type="text/jsx"> </script>` tags. Normally you would OF COURSE separate this out from the HTML - in more advanced React apps, you definitely do - but for the purposes of this exercise, we're just going to cheat and include it here. :wink:
 
@@ -43,7 +39,7 @@ Here's a conceptual overview of how to build a basic React app. Don't worry if i
 
 <li>To use these components, you'll write a line of code instructing React to create your component as an element. That line will also link the component and the properties so that they can be rendered together.</li> 
 
-<li>And you'll use another line of code to tell React where in the DOM to insert that element.</li>
+<li>And you'll use another line of code to tell React where in the DOM to insert that element.</li></ul>
 
 That all sounds great, but what does it actually look like? Let's make a super simple app called My Favorite Things. Here's the structure for a component, the snippets of code that create your app. You can go ahead and copy this (as well as the two chunks of code that follow) inside the `<script type="text/jsx"></script>` tags of your HTML.
 
