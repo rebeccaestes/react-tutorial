@@ -186,7 +186,7 @@ You could make a much more elaborate element, with nesting HTML tags and IDs and
 
 * You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`.
 
-* Whatever element directly follows `return` has to enclose <strong>all the HTML that you're returning. So if you have a component with an h1 and a p element, you should enclose it all within a `<div>`. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
+* Whatever element directly follows `return` has to enclose <strong>all the HTML</strong> that you're returning. So if you have a component with an h1 and a p element, you should enclose it all within a `<div>`. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
 
 
 If you copy and paste that `return <p>I am a new paragraph</p>` into your AFavoriteThing render function, save it, and open index.html in your browser, you'll see it ... well, rendered in the browser. Cool! Well, sort of.
