@@ -86,7 +86,7 @@ These next two lines have two more built-in methods that come with React and Rea
 
 ```jsx
 var element = React.createElement(MyFavoriteThings, favorites);
-ReactDOM.render(element, document.querySelector(".react-element");
+ReactDOM.render(element, document.querySelector(".react-element"));
 ```
 
 .createElement's parameters are the code you want to render on this page and its relevant data. In this case, that's `MyFavoriteThings` and `favorites` - conveniently, the two objects we just built.
@@ -143,7 +143,7 @@ Let's do that, and take a look at our file thus far:
 	};
 
 	var element = React.createElement(MyFavoriteThings, favorites);
-	ReactDOM.render(element, document.querySelector(".react-element");
+	ReactDOM.render(element, document.querySelector(".react-element"));
 
 </script>
 
@@ -186,10 +186,31 @@ You could make a much more elaborate element, with nesting HTML tags and IDs and
 
 * You can include IDs or classes within any HTML element. But because React includes its own .createClass that does something pretty different than what regular HTML classes do, you need to <strong>designate classes with `className="box"`</strong> instead of `class="box"`. So a div element might look like `<div id="top" className="narrow">`.
 
+If you copy and paste that `return <p>I am a new paragraph</p>` into your MyFavoriteThings render function, save it, and open index.html in your browser, you'll see it ... well, rendered in the browser. Cool! Well, sort of.
 
-	
+What would be cooler is if we could use React to do something other than write HTML in a really complex way. Luckily, we can.
 
-(A [literal!] parenthetical on ReactDOM: older versions of React included the code that makes up the ReactDOM script, but now it's been separated out. So out in the wilds of the internet, you might see older code structured exactly like the ReactDOM.render line, except it says React.render. It's doing the same thing.)
+<h3>Properties</h3>
 
+Earlier, I said that React components can make use of properties. In ths app, our properties are stored as an object in the variable `favorites`, and linked them to the component we're creating in the line `var element = React.createElement(MyFavoriteThings, favorites);
+`. But how to we access them?
 
-It's sort of similar to Angular, and if you've had any experience with Node, you'll recognize some familiar structure. It was (at least originally) meant for building easily rendered user interfaces. One pro of React, in comparison to Angular, is that you can integrate it with any other technology or framework you want.
+React objects - remember, our component is technically an object - come with a handy property called, originally, `.props`. We can attach it to `this` (so that it knows which object's properties it's looking for - in future projects, you'll have different many components). From there, you know how to grab a particular value from an object - something like `this.props.books[0].title` is one way to do it.
+
+But how do you include the value you've grabbed via Javascript, within an HTML element we're returning? {Curly braces, that's how!}
+
+Try this:
+
+```
+	var MyFavoriteThings = React.createClass({
+		render: function() {
+			return <div>
+				<h1>{this.props.books[0].title}</h1>
+				<h2>{this.props.books[0].volumes} books by {this.props.books[0].author}</h2>
+			</div>
+		}
+	});
+```
+
+Note that whatever element follows `return` has to follow <em>all</em>the HTML that you're returning. (Remind you of anything? Maybe another front-end framework that rhymes with "pangular"??)
+

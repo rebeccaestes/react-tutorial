@@ -19,7 +19,10 @@
 
 	var MyFavoriteThings = React.createClass({
 		render: function() {
-			// CODE GOES HERE
+			return <div>
+				<h1>{this.props.books[0].title}</h1>
+				<h2>{this.props.books[0].volumes} books by {this.props.books[0].author}</h2>
+			</div>
 		}
 	});
 
@@ -41,11 +44,11 @@
 			title: "Jessica Jones",
 			network: "Netflix",
 			seasons: 1
-		]
+		}]
 	};
 
 	var element = React.createElement(MyFavoriteThings, favorites);
-	ReactDOM.render(element, document.querySelector(".react-element");
+	ReactDOM.render(element, document.querySelector(".react-element"));
 
 </script>
 
