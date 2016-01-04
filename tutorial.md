@@ -1,5 +1,6 @@
 <h1>React Basics</h1>
 
+<h2>Setup</h2>
 For the purposes of this exercise, you'll only need one file, index.html. You'll set it up with the basic HTML boilerplate, but in the with a few new scripts loaded in the head, and an extra script section at the bottom. Here's what it should look like:
 
 ```
@@ -35,12 +36,13 @@ Here's a conceptual overview of how to build a basic React app. Don't worry if i
 
 <ul><li>React apps are built of snippets of code called <strong>components</strong>. Components can construct HTML elements as simple as a sentence, or as complicated as a Facebook user interface. (We're going to be sticking to the simpler elements here ... just so you keep your expectations reasonable!)</li>
 
-<li>Components can make use of a list of properties, which are listed in a separately-instantiated object. (Technically these aren't necessary, but it would make for a really boring app.)</li>
+<li>Components can make use of a list of <strong>properties</strong>, which are listed in a separately-instantiated object. (Technically these aren't necessary, but it would make for a really boring app.)</li>
 
-<li>To use these components, you'll write a line of code instructing React to create your component as an element. That line will also link the component and the properties so that they can be rendered together.</li> 
+<li>To use these components, you'll write a line of code instructing React to <strong>create your component</strong> as an element. That line will also link the component and the properties so that they can be rendered together.</li> 
 
-<li>And you'll use another line of code to tell React where in the DOM to insert that element.</li></ul>
+<li>And you'll use another line of code to tell React <strong>where in the DOM</strong> to insert that element.</li></ul>
 
+<h2>Code Structures</h2>
 That all sounds great, but what does it actually look like? Let's make a super simple app called My Favorite Things. Here's the structure for a component, the snippets of code that create your app. You can go ahead and copy this (as well as the two chunks of code that follow) inside the `<script type="text/jsx"></script>` tags of your HTML.
 
 ```
@@ -149,6 +151,8 @@ Here's what your entire index.html file should look like now:
 ```
 
 Everything look good? Cool - now let's write some JSX!
+
+<h2>JSX</h2>
 
 Like I said before, JSX is a way of inserting HTML into a page that's easier than doing it in regular Javascript. You don't have to use it with React, but it makes your life a lot easier. For example, here's an example of code you'd write to insert a new five-word paragraph with vanilla Javascript:
 
