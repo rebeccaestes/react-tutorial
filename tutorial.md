@@ -156,7 +156,7 @@ Everything look good? Cool - now let's write some JSX!
 
 Like I said before, JSX is a way of inserting HTML into a page that's easier than doing it in regular Javascript. You don't have to use it with React, but it makes your life a lot easier. For example, here's an example of code you'd write to insert a new five-word paragraph with vanilla Javascript:
 
-```
+```javascript
 var newParagraph = document.createElement("p");
 var paraText = document.createTextNode("I am a new paragraph.");
 para.appendChild(paraText);
@@ -167,7 +167,7 @@ body.appendChild(para);
 
 ... and here's that exact same code, in JSX.
 
-```
+```jsx
 var NewPara = React.createClass({
 	render: function() {
 		return <p>I am a new paragraph</p>
