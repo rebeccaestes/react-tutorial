@@ -239,7 +239,8 @@ var ListOfThings = React.createClass({
 
 The third line, where `var list` is first defined, should be familiar. We're iterating through `this.props.books`, and mapping the values to a function. That function is where things get a little complicated.
 
-* We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line)
- * We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance of `this.props.books` in our data.
- * Inside of `<AFavoriteThing />`, we're passing in this weird-looking `{...favoriteProps}. Well, we're iterating through this.props.books within ListOfThings, and in order to render the component that AFavoriteThing will generate, AFavoriteThing needs to be able to access the properties ListOfThings is giving it. By including `{...favoriteProps}`, AFavoriteThing has access to the properties it needs for each iteration. You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
+* We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line).
+* We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance of `this.props.books` in our data.
+* Inside of `<AFavoriteThing />`, we're passing in this weird-looking `{...favoriteProps}`. Well, we're iterating through this.props.books within ListOfThings, and in order to render the component that AFavoriteThing will generate, AFavoriteThing needs to be able to access the properties ListOfThings is giving it. By including `{...favoriteProps}`, AFavoriteThing has access to the properties it needs for each iteration. 
+ * You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
 
