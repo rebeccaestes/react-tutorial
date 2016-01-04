@@ -141,10 +141,10 @@ Like I said before, JSX is a way of inserting HTML into a page that's easier tha
 ```javascript
 var newParagraph = document.createElement("p");
 var paraText = document.createTextNode("I am a new paragraph.");
-para.appendChild(paraText);
+newParagraph.appendChild(paraText);
 
 var body = document.getElementById("body");
-body.appendChild(para);
+body.appendChild(newParagraph);
 ```
 
 ... and here's that exact same code, in JSX.
