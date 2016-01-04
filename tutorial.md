@@ -312,6 +312,6 @@ Finally, we need this toggled style to actually change something. You could writ
 
 Your index.html file will now show a lovely list of two books that changes colors upon the click of a button. If it's not, take a look at <a href="https://github.com/rebeccaestes/react-tutorial/blob/master/index.html">my solution code</a> to try and figure out where you went wrong.
 
-<h3>What's next?</h3>
+<h4>What's next?</h4>
 
 Check out <a href="https://facebook.github.io/react/index.html">React's documentation</a>. If you have a few dollars laying around I recommend the Udemy course <a href="https://www.udemy.com/learn-and-understand-reactjs">Build Web Apps with React JS and Flux</a>. 
