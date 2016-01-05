@@ -201,9 +201,9 @@ When we need to access properties within some HTML we're returning, all you need
 
 <h4>Looping Through Properties</h4>
 
-OK, so we can display properties through their index number. We should be able to display them all by looping through them, right? We can!
+OK, so we can display properties through their index number. We should be able to display them all by looping through them, right?
 
-We're going to create a new component to do this. This new component will be a list of all our favorite things, so let's call it ListOfThings. Inside ListOfThings, we'll be printing out the component AFavoriteThing, once for every object in our data. Here's how we do this:
+We're going to create a new component to do this. This new component will be a list of ALL of our favorite things, not just one. Let's call it ListOfThings. Inside ListOfThings, the component AFavoriteThing will display once for every object in our data. Here's how we do this:
 
 ```jsx
 var ListOfThings = React.createClass({
@@ -223,12 +223,14 @@ The third line, where `var list` is first defined, should be familiar. We're ite
 
 * We're calling the properties that we're iterating through `favoriteProps` (this could be anything, as long as you're consistent and name it the same thing on the next line).
 * We're returning what looks like a made-up element: `<AFavoriteThing />`. What we're really returning, though, is <em>an instance of the </em><strong>component</strong> called AFavoriteThing - one for each instance (in this case, book) of `this.props.books` in our data.
-* Inside of `<AFavoriteThing />`, we're including this this weird-looking `{...favoriteProps}` line. This is because we're iterating through this.props.books within ListOfThings, and in order to render its component, AFavoriteThing needs to be able to access the properties ListOfThings is generating. By including `{...favoriteProps}`, we're passing these properties to AFavoriteThing the properties.
- * You could pass each property individually, but that's pretty tedious. This structure gives you a shortcut.
+* Inside of `<AFavoriteThing />`, we're including this this weird-looking `{...favoriteProps}` line. This is because we're iterating through this.props.books within ListOfThings, and in order to render its component, AFavoriteThing needs to be able to access the properties ListOfThings is generating. By including `{...favoriteProps}`, we're passing all of these properties to AFavoriteThing.
+ * You could pass each property individually, but that's pretty tedious. This `{...var}` structure gives you a shortcut.
 
-There's two final things you should do for this mapping function to work. First, since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them.
+There's two final things you should do for this mapping function to work. 
 
-Second, we need to update AFavoriteThing so that we can reuse it for every book in our data. We don't want it to just generate Harry Potter data every time. So make sure it includes this code:
+1. Since we're now accessing the properties defined in our `favorites` object in ListOfThings, not AFavoriteThing, we need to change `var element = React.createElement(AFavoriteThing, favorites);` to `var element = React.createElement(ListOfThings, favorites);`. Remember, whenever AFavoriteThings needs to use the data from `favorites`, we've instructed ListOfThings to give it to them, with the `<AFavoriteThing / {...favoriteProps>` code.
+
+2. We need to update AFavoriteThing so that we can reuse it for every book in our data. We don't want it to just generate Harry Potter data every time. So make sure it includes this code:
 
 ```jsx
 var AFavoriteThing = React.createClass({
@@ -241,15 +243,17 @@ var AFavoriteThing = React.createClass({
 });
 ```
 
+Each time ListOfThings generates an AFavoriteThing component while iterating through our data, it will replace `{this.props.title}` et. al. with the title, number of volumes, and books for the relevant item.
+
 <h3>States</h3>
 
-You might expect React to be somewhat, well, reactive. It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div` state with specific properties, as well as a `this.state.style' state with others.
+You might expect React to be somewhat, well, reactive. It is! That's where states come in. States are a property of any React component, and they're accessed via `this.state`. You can set states to show or hide an element, display an element in a different style - basically any manipulation you can do in regular Javascript. And states can have multiple properties, so you might have a `this.state.show_div` state with its own possible options, as well as a `this.state.style' state with others.
 
 We're going to set up an extremely simple (and pretty pointless) style state, but it will familiarize you with the general structure of states. Our state is going to toggle the color of our text when we click a button.
 
 If this were a regular Javascript function we were writing, we'd set a toggling onClick event to change the font to red when we clicked our button, and then back to black when we clicked it again. That's honestly not that different from what we'll do here.
 
-Our button is listening for a click, and when it hears it, it will run a method called handleClick to decide what to do. Here's what our button looks like:
+Our button will live within the ListOfThings object. It will listen for a click, and when it hears it, it will run a method called handleClick to decide what to do. Here's what our button looks like:
 
 ```jsx
 return <div>
@@ -258,27 +262,29 @@ return <div>
 </div>
 ```
 
-Now, let's define the handleClick method. Before the render method in ListOfThings, paste the following. It's a simple toggle function that decides what to set `this.state.style` to, depending on what that value currently is. 
+Now, let's define the handleClick method. Before the render method in ListOfThings, make sure the following code is included. It's a simple toggle function that decides what to set `this.state.style` to, depending on what that value currently is. 
 
 ```jsx
-handleClick: function() {
-	if (this.state.style === "colorful") {
-		this.setState({
-			style: "uncolorful"
-		})
-	} else {
-		this.setState({
-			style: "colorful"
-		})
-	}
-},
+var ListOfThings = React.createClass({
+	handleClick: function() {
+		if (this.state.style === "colorful") {
+			this.setState({
+				style: "uncolorful"
+			})
+		} else {
+			this.setState({
+				style: "colorful"
+			})
+		}
+	},
 ```
 
 So we're passing in an object using `this.setState`, with one key-value pair. You need to use `this.setState`, instead of just assigning `this.state.style` to colorful or uncolorful, because a simple assignment <strong>will not rerender the page</strong>. Only setState will. 
 
 Please note:
 * You could include multiple key-value pairs in the setState object, if you wanted!
-* Don't forget the comma between the end of this method, and the beginning of the render method. It will break your app.
+* You can include as many event handling items as you want. You could have handleClickOnButton, handleClickOnText, handleKeyDown, etc., as long as you include an event listener on the appropriate element
+* <strong>Don't forget the comma</strong> between the end of this method, and the beginning of the render method. It will break your app.
 
 There's one last thing we need to do, and that's to set React.createClass's built-in method, getInitialState. Unsurprisingly, this is what React runs when a page first loads, to get its initial state.
 
@@ -290,7 +296,7 @@ getInitialState: function() {
 },
 ```
 
-Finally, we need this toggled style to actually change something. You could write inline CSS for this, but you should know by now how to set up a separate stylesheet and link to it. Here's the bare-bones code I used:
+Finally, we need the class we're toggling by changing the variable `style` to actually change something. You could write inline CSS for this, but you should know by now how to set up a separate stylesheet and link to it. Here's the bare-bones code I used:
 
 ```css
 .colorful {
