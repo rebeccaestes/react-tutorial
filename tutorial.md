@@ -71,7 +71,7 @@ var favorites = {
 };
 ```
 
-This object consists of two arrays, each of which contain two objects, each of which have three key-property pairs.
+This object consists of one array of two objects, each of which have three key-property pairs.
 
 These next two lines have two more built-in methods that come with React and ReactDOM, respectively. Notice where variables are being repeated.
 
