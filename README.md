@@ -1,1 +1,1 @@
-The first in a planned series of React tutorials. Covers properties and, briefly, states. index.html and style.css include the solution code.
+A React tutorial. Covers properties and, briefly, states. index.html and style.css include the solution code.
